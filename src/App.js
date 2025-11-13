@@ -92,28 +92,23 @@ useEffect(() => {
 
 return (
     <div>
-        <h2>Strudel Demo</h2>
+        <h2 style={{ textAlign: 'center' }}>Strudel Demo</h2>
         <main>
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <PreprocTextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
-                    </div>
-                    <div className="col-md-4">
-
-                        <nav>
-
-                            <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
-                        </nav>
+                    <div className="col-md-8 editor-container">
+                        <PreprocTextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} id="proc" />
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                    <div className="col-md-8 editor-container">
                         <div id="editor" />
-                        <div id="output" />
                     </div>
                     <div className="col-md-4">
                         <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} />
+                        <nav>
+                            <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
+                        </nav>
                     </div>
                 </div>
             </div>

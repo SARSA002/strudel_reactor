@@ -36,3 +36,93 @@
     transform: rotate(360deg);
   }
 }
+
+/* Code Editor & Preprocess Text Area Styling */
+#roll {
+  display: none !important;
+}
+
+.editor-container {
+  max-height: 50vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-right: 0 !important;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#proc {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  border: none;
+  resize: none;
+  border-radius: 8px;
+}
+
+#proc:focus {
+  outline: none;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+#editor {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove scrollbar gap */
+.cm-editor {
+  height: 100% !important;
+  background-color: #1e1e1e !important;
+  color: #e0e0e0 !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+}
+
+.cm-scroller {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+
+.cm-gutters {
+  margin-right: 0 !important;
+  background-color: #252525 !important;
+}
+
+.cm-linenumber {
+  color: #666 !important;
+}
+
+.cm-content {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+  font-size: 13px !important;
+}
+
+/* Play and Stop buttons styling */
+.col-md-4:nth-of-type(1) nav {
+  margin-top: auto;
+}
+
+.btn-group-full {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-full {
+  width: 100% !important;
+  flex: 1;
+}
