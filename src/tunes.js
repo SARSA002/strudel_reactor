@@ -15,7 +15,7 @@ s("pulse")
 .gain(1)
 
 hi_hats:
-s("~ hh:8 ~ hh:8 ~ hh:8 ~ hh:8")
+s("{$HH_PATTERN}")
 .gain(1)
 .room(.3)
 .orbit(5)

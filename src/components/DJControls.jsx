@@ -1,4 +1,4 @@
-function DJControls({ volume, onVolumeChange }) {
+function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle }) {
   return (
     <>
         <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -23,16 +23,18 @@ function DJControls({ volume, onVolumeChange }) {
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                h1_h@t$
+                h1_h@t
               </button>
             </h2>
             <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse show">
-              <div className="accordion-body">
-                <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="d1"/>
-                    <label className="form-check-label" htmlFor="d1">
-                        d1
-                    </label>
+              <div className="accordion-body">               
+                <div className="btn-group-full" role="group" aria-label="Hi-hat toggle">
+                  <button 
+                    className={hiHatEnabled ? "btn btn-outline-success btn-full" : "btn btn-outline-danger btn-full"}
+                    onClick={onHiHatToggle}
+                  >
+                    {hiHatEnabled ? "h1_h@t !$ 0n :)" : "h1_h@t !$ 0ff :("}
+                  </button>
                 </div>
               </div>
             </div>

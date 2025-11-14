@@ -1,4 +1,4 @@
-export function Preprocess ({ inputText, volume }) {
+export function Preprocess ({ inputText, volume, hiHatEnabled }) {
     
     //console.log(inputText)
 
@@ -7,6 +7,12 @@ export function Preprocess ({ inputText, volume }) {
     outputText += `\n//all(x => x.gain(${volume}))`
 
     outputText = outputText.replaceAll("{$VOLUME}", volume)
+
+    const hhPattern = hiHatEnabled 
+      ? "~ hh:8 ~ hh:8 ~ hh:8 ~ hh:8"
+      : "~";    
+
+    outputText = outputText.replaceAll("{$HH_PATTERN}", hhPattern);
 
     let regex = /[a-zA-Z0-9_]+:\s*\n[\s\S]+?\r?\n(?=[a-zA-Z0-9_]*[:\/])/gm;
 

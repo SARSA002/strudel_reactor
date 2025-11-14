@@ -27,20 +27,30 @@ export default function StrudelDemo() {
 
     const handlePlay = () => {
 
-        let outputText = Preprocess({ inputText: procText, volume: volume });
+        let outputText = Preprocess({ inputText: procText, volume: volume, hiHatEnabled: hiHatEnabled });
+        // restart the editor to ensure changes
+        if (globalEditor && typeof globalEditor.stop === 'function') {
+            try { globalEditor.stop(); } catch (e) { /* ignore */ }
+        }
         globalEditor.setCode(outputText);
-        globalEditor.evaluate()
+        globalEditor.evaluate();
     }
 
     const handleStop = () => {
         globalEditor.stop()
     }
 
+    const handleHiHatToggle = () => {
+    setHiHatEnabled(prev => !prev);
+    };
+
     const [procText, setProcText] = useState(algorave_dave_tune)
 
     const [volume, setVolume] = useState(1);
 
     const [state, setState] = useState("stop");
+
+    const [hiHatEnabled, setHiHatEnabled] = useState(true);
     
     useEffect(() => {
 
@@ -49,6 +59,12 @@ export default function StrudelDemo() {
         }
 
     }, [volume])
+
+    useEffect(() => {
+        if (state === "play") {
+            handlePlay();
+        }
+    }, [hiHatEnabled]);
 
 useEffect(() => {
 
@@ -100,7 +116,7 @@ return (
                         <PreprocTextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} id="proc" />
                     </div>
                     <div className="col-md-4">
-                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} />
+                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} hiHatEnabled={hiHatEnabled} onHiHatToggle={handleHiHatToggle} />
                         <nav>
                             <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
                         </nav>
