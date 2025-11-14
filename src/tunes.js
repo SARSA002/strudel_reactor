@@ -1,5 +1,8 @@
 export const algorave_dave_tune = `setcps(140/60/4)
 
+samples('github:algorave-dave/samples')
+samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json')
+
 const pattern = 0
 
 pulse_synth:
@@ -11,9 +14,9 @@ s("pulse")
 .fmh(2.04)
 .gain(1)
 
-hihats:
+hi_hats:
 s("~ hh:8 ~ hh:8 ~ hh:8 ~ hh:8")
-.gain(.5)
+.gain(1)
 .room(.3)
 .orbit(5)
 .lpf(8000)

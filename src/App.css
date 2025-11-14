@@ -58,21 +58,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
-  font-size: 13px;
+  font-family: 'Press Start 2P';
+  font-size: 10px;
+  background-color: #1e1e1e !important;
+  color: #e0e0e0 !important;
   line-height: 1.5;
-  border: none;
-  resize: none;
-  border-radius: 8px;
 }
 
-#proc:focus {
-  outline: none;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-}
 
 #editor {
   width: 100%;
@@ -84,10 +76,8 @@
 /* Remove scrollbar gap */
 .cm-editor {
   height: 100% !important;
-  background-color: #1e1e1e !important;
-  color: #e0e0e0 !important;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
-  font-size: 13px !important;
+  font-family: 'Press Start 2P' !important;
+  font-size: 10px !important;
   border-radius: 8px !important;
 }
 
@@ -98,7 +88,7 @@
 
 .cm-gutters {
   margin-right: 0 !important;
-  background-color: #252525 !important;
+
 }
 
 .cm-linenumber {
@@ -106,8 +96,8 @@
 }
 
 .cm-content {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
-  font-size: 13px !important;
+  font-family: 'Press Start 2P' !important;
+  font-size: 10px !important;
 }
 
 /* Play and Stop buttons styling */
@@ -125,4 +115,41 @@
 .btn-full {
   width: 100% !important;
   flex: 1;
+}
+
+/* Force Press Start 2P font on all elements */
+* {
+  font-family: 'Press Start 2P' !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P' !important;
+}
+
+label, .form-label {
+  font-family: 'Press Start 2P' !important;
+}
+
+button, .btn {
+  font-family: 'Press Start 2P' !important;
+}
+
+input, textarea, select {
+  font-family: 'Press Start 2P' !important;
+}
+
+.form-control, .form-check-input, .form-range {
+  font-family: 'Press Start 2P' !important;
+}
+
+.accordion-button {
+  font-family: 'Press Start 2P' !important;
+}
+
+.accordion-body {
+  font-family: 'Press Start 2P' !important;
+}
+
+.input-group-text {
+  font-family: 'Press Start 2P' !important;
 }
