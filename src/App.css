@@ -45,7 +45,6 @@
 .editor-container {
   max-height: 50vh;
   overflow-y: scroll;
-  overflow-x: hidden;
   padding-right: 0 !important;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -59,8 +58,8 @@
   margin: 0;
   padding: 0;
   font-family: 'Press Start 2P';
-  font-size: 10px;
-  background-color: #1e1e1e !important;
+  font-size: 15px;
+  background-color: #222222 !important;
   color: #e0e0e0 !important;
   line-height: 1.5;
 }

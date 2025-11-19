@@ -6,38 +6,45 @@ samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strud
 const pattern = 0
 
 pulse_synth:
-s("pulse")
+s("{$PS_PATTERN}")
 .orbit(4)
-.seg(16)
+.seg(8)
 .dec(.1)
 .fm("2")
-.fmh(2.04)
-.gain(1)
+.fmh(4)
+.gain(2)
 
 hi_hats:
 s("{$HH_PATTERN}")
-.gain(1)
+.gain(1.25)
 .room(.3)
 .orbit(5)
 .lpf(8000)
 
 supersaw_pad:
-s("supersaw")
-.detune(1)
-.rel(2.5)
+s("{$SUPERSAW_PATTERN}")
+.detune(0.5)
+.rel(2)
 .beat(2, 32)
 .slow(2)
 .orbit(3)
 .fm("2")
-.fmh(2.04)
-.room(1)
-.roomsize(3)
+.fmh(3)
+.gain(0.75)
+
+
+bassline:
+s("{$BASSLINE_PATTERN}")
+.duck("2:3:4:5:6")
+.duckattack(.2)
+.duckdepth(.8)
+.distort("2:.5")
 .gain(1)
+._scope()
+
 
 melody:
-n(irand(5)
-.sub(7)
-.seg(16))
+{$RANDOM_MELODY_PATTERN}
 .scale("c:minor")
 .rib(46,1)
 .distort("1:.5")
@@ -48,14 +55,5 @@ n(irand(5)
 .orbit(2)
 .gain(1)
 ._pianoroll()
-
-kick:
-s("sbd!4")
-.duck("2:3:4:5:6")
-.duckattack(.2)
-.duckdepth(.8)
-.distort("2:.5")
-.gain(1)
-._scope()
 
 // @version 1.2`;

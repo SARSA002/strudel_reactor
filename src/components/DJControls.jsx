@@ -1,4 +1,4 @@
-function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle }) {
+function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle, pulseSynthEnabled, onPulseSynthToggle, supersawEnabled, onSupersawToggle, basslineEnabled, onBasslineToggle, randomMelodyEnabled, onRandomMelodyToggle }) {
   return (
     <>
         <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -10,11 +10,13 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle }) {
             </h2>
             <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
               <div className="accordion-body">
-                <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="s1"/>
-                    <label className="form-check-label" htmlFor="s1">
-                        s1
-                    </label>
+                <div className="btn-group-full" role="group" aria-label="Pulse-synth toggle">
+                  <button 
+                    className={pulseSynthEnabled ? "btn btn-outline-success btn-full" : "btn btn-outline-danger btn-full"}
+                    onClick={onPulseSynthToggle}
+                  >
+                    {pulseSynthEnabled ? "pu1$3_$yn7h !$ 0n :)" : "pu1$3_$yn7h !$ 0ff :("}
+                  </button>
                 </div>
               </div>
             </div>
@@ -43,12 +45,40 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle }) {
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-                b@$$_l1n3
+                supersaw
               </button>
             </h2>
             <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse show">
               <div className="accordion-body">
-                <div className="input-group mb-3">
+                <div className="btn-group-full" role="group" aria-label="Supersaw toggle">
+                  <button 
+                    className={supersawEnabled ? "btn btn-outline-success btn-full" : "btn btn-outline-danger btn-full"}
+                    onClick={onSupersawToggle}
+                  >
+                    {supersawEnabled ? "supersaw !$ 0n :)" : "supersaw !$ 0ff :("}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                b@$$_l1n3
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse show">
+              <div className="accordion-body">
+                <div className="btn-group-full" role="group" aria-label="Bassline toggle">
+                  <button 
+                    className={basslineEnabled ? "btn btn-outline-success btn-full" : "btn btn-outline-danger btn-full"}
+                    onClick={onBasslineToggle}
+                  >
+                    {basslineEnabled ? "b@$$_l1n3 !$ 0n :)" : "b@$$_l1n3 !$ 0ff :("}
+                  </button>
+                </div>
+                <div className="input-group mb-3" style={{marginTop: '10px'}}>
                     <span className="input-group-text" id="cpm_label">set_cpm</span>
                     <input type="text" className="form-control" id="cpm_text_input" placeholder="120" aria-label="cpm" aria-describedby="cpm_label"/>
                 </div>
@@ -58,12 +88,20 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle }) {
 
           <div className="accordion-item">
             <h2 className="accordion-header">
-              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="true" aria-controls="panelsStayOpen-collapseFive">
                 r@nd0m_m3l0dy
               </button>
             </h2>
-            <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse show">
+            <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse show">
               <div className="accordion-body">
+                <div className="btn-group-full" role="group" aria-label="Random Melody toggle">
+                  <button 
+                    className={randomMelodyEnabled ? "btn btn-outline-success btn-full" : "btn btn-outline-danger btn-full"}
+                    onClick={onRandomMelodyToggle}
+                  >
+                    {randomMelodyEnabled ? "r@nd0m_m3l0dy !$ 0n :)" : "r@nd0m_m3l0dy !$ 0ff :("}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
