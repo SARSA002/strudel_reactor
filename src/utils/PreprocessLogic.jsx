@@ -1,4 +1,4 @@
-export function Preprocess ({ inputText, volume, hiHatEnabled, pulseSynthEnabled, supersawEnabled, basslineEnabled, randomMelodyEnabled }) {
+export function Preprocess ({ inputText, volume, hiHatEnabled, pulseSynthEnabled, supersawEnabled, basslineEnabled, randomMelodyEnabled, randomMelodyNumber, basslineDistortAmount, basslineDistortCurve, distortionEnabled }) {
     
     //console.log(inputText)
 
@@ -10,30 +10,30 @@ export function Preprocess ({ inputText, volume, hiHatEnabled, pulseSynthEnabled
 
 
     const hhPattern = hiHatEnabled 
-    ? "~ hh:8 ~ hh:8 ~ hh:8 ~ hh:8"
-    : "~";    
+        ? "~ hh:8 ~ hh:8 ~ hh:8 ~ hh:8"
+        : "~";    
 
     const psPattern = pulseSynthEnabled 
-      ? "pulse"
-      : "~";    
+        ? "pulse"
+        : "~";    
 
     const ssPattern = supersawEnabled
         ? "supersaw"
         : "~";
 
     const blPattern = basslineEnabled 
-        ? "sbd!4" 
-        : "~";
+        ? (distortionEnabled ? `s("sbd!4").distort("${basslineDistortAmount}:${basslineDistortCurve}")` : `s("sbd!4")`)
+        : `s("~")`;
     
     const rmPattern = randomMelodyEnabled 
-        ? "n(irand(5).sub(7).seg(8))" 
+        ? `n(irand(${randomMelodyNumber}).sub(7).seg(8))`
         : "n('~')";
 
     outputText = outputText.replaceAll("{$HH_PATTERN}", hhPattern);
     outputText = outputText.replaceAll("{$PS_PATTERN}", psPattern);
-    outputText = outputText.replaceAll("{$SUPERSAW_PATTERN}", ssPattern);
-    outputText = outputText.replaceAll("{$BASSLINE_PATTERN}", blPattern);
-    outputText = outputText.replaceAll("{$RANDOM_MELODY_PATTERN}", rmPattern);
+    outputText = outputText.replaceAll("{$SS_PATTERN}", ssPattern);
+    outputText = outputText.replaceAll("{$BS_PATTERN}", blPattern);
+    outputText = outputText.replaceAll("{$RM_PATTERN}", rmPattern);
 
     let regex = /[a-zA-Z0-9_]+:\s*\n[\s\S]+?\r?\n(?=[a-zA-Z0-9_]*[:\/])/gm;
 

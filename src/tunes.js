@@ -22,7 +22,7 @@ s("{$HH_PATTERN}")
 .lpf(8000)
 
 supersaw_pad:
-s("{$SUPERSAW_PATTERN}")
+s("{$SS_PATTERN}")
 .detune(0.5)
 .rel(2)
 .beat(2, 32)
@@ -34,17 +34,16 @@ s("{$SUPERSAW_PATTERN}")
 
 
 bassline:
-s("{$BASSLINE_PATTERN}")
+{$BS_PATTERN}
 .duck("2:3:4:5:6")
 .duckattack(.2)
 .duckdepth(.8)
-.distort("2:.5")
 .gain(1)
 ._scope()
 
 
 melody:
-{$RANDOM_MELODY_PATTERN}
+{$RM_PATTERN}
 .scale("c:minor")
 .rib(46,1)
 .distort("1:.5")

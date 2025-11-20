@@ -26,9 +26,29 @@ export default function StrudelDemo() {
     const hasRun = useRef(false);
 
     const handlePlay = () => {
+        let melodyNumberToUse = randomMelodyNumber;
+        
+        if (randomMelodyEnabled) {
+            const valueToCommit = randomMelodyNumberInput === '' ? 1 : randomMelodyNumberInput;
+            setRandomMelodyNumber(valueToCommit);
+            setRandomMelodyNumberInput(valueToCommit);
+            melodyNumberToUse = valueToCommit;
+        }
 
-        let outputText = Preprocess({ inputText: procText, volume: volume, hiHatEnabled: hiHatEnabled, pulseSynthEnabled: pulseSynthEnabled, supersawEnabled: supersawEnabled, basslineEnabled: basslineEnabled, randomMelodyEnabled: randomMelodyEnabled });
-        // restart the editor to ensure changes
+        let outputText = Preprocess({
+            inputText: procText,
+            volume: volume,
+            hiHatEnabled: hiHatEnabled,
+            pulseSynthEnabled: pulseSynthEnabled,
+            supersawEnabled: supersawEnabled,
+            basslineEnabled: basslineEnabled,
+            randomMelodyEnabled: randomMelodyEnabled,
+            randomMelodyNumber: melodyNumberToUse,
+            basslineDistortAmount: basslineDistortAmount,
+            basslineDistortCurve: basslineDistortCurve,
+            distortionEnabled: distortionEnabled
+        });
+                // restart the editor to ensure changes
         if (globalEditor && typeof globalEditor.stop === 'function') {
             try { globalEditor.stop(); } catch (e) { /* ignore */ }
         }
@@ -60,6 +80,10 @@ export default function StrudelDemo() {
     setRandomMelodyEnabled(prev => !prev);
     };
 
+    const handleDistortionToggle = () => {
+    setDistortionEnabled(prev => !prev);
+    };
+
     const [procText, setProcText] = useState(algorave_dave_tune)
 
     const [volume, setVolume] = useState(1);
@@ -69,11 +93,59 @@ export default function StrudelDemo() {
     const [hiHatEnabled, setHiHatEnabled] = useState(true);
 
     const [pulseSynthEnabled, setPulseSynthEnabled] = useState(true);
+    
     const [supersawEnabled, setSupersawEnabled] = useState(true);
     
     const [basslineEnabled, setBasslineEnabled] = useState(true);
     
     const [randomMelodyEnabled, setRandomMelodyEnabled] = useState(true);
+    
+    const [randomMelodyNumber, setRandomMelodyNumber] = useState(5);
+    
+    const [randomMelodyNumberInput, setRandomMelodyNumberInput] = useState(5);
+    
+    const [basslineDistortAmount, setBasslineDistortAmount] = useState(2.1);
+    
+    const [basslineDistortCurve, setBasslineDistortCurve] = useState(0.4);
+    
+    const [distortionEnabled, setDistortionEnabled] = useState(true);
+
+    const handleRandomMelodyNumberChange = (e) => {
+        const value = e.target.value;
+        if (value === '') {
+            setRandomMelodyNumberInput('');
+            return;
+        }
+        const numValue = Number(value);
+        if (!isNaN(numValue) && numValue >= 0) {
+            setRandomMelodyNumberInput(numValue);
+        }
+    };
+
+    const handleRandomMelodyNumberKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            const valueToCommit = randomMelodyNumberInput === '' ? 1 : randomMelodyNumberInput;
+            setRandomMelodyNumber(valueToCommit);
+            setRandomMelodyNumberInput(valueToCommit);
+        }
+    };
+
+
+    const handleBasslineDistortAmountChange = (e) => {
+      const newValue = Number(e.target.value);
+      setBasslineDistortAmount(newValue);
+      if (e.type === 'mouseup' && state === "play") {
+        setTimeout(() => handlePlay(), 0);
+      }
+    };
+
+    const handleBasslineDistortCurveChange = (e) => {
+      const newValue = Number(e.target.value);
+      setBasslineDistortCurve(newValue);
+      if (e.type === 'mouseup' && state === "play") {
+        setTimeout(() => handlePlay(), 0);
+      }
+    };
 
     useEffect(() => {
 
@@ -112,6 +184,18 @@ export default function StrudelDemo() {
             handlePlay();
         }
     }, [randomMelodyEnabled]);
+
+    useEffect(() => {
+        if (state === "play") {
+            handlePlay();
+        }
+    }, [randomMelodyNumber]);
+
+    useEffect(() => {
+        if (state === "play") {
+            handlePlay();
+        }
+    }, [distortionEnabled]);
 
     useEffect(() => {
 
@@ -155,7 +239,7 @@ export default function StrudelDemo() {
 
 return (
     <div>
-        <h2 style={{ textAlign: 'center', fontSize: 40 }}>$trud3l_r@v3</h2>
+        <h2 style={{ textAlign: 'center', fontSize: 40 }}>$7RµDΞL_R∆VΞ</h2>
         <main>
             <div className="container-fluid">
                 <div className="row">
@@ -163,7 +247,29 @@ return (
                         <PreprocTextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} id="proc" />
                     </div>
                     <div className="col-md-4">
-                        <DJControls volume={volume} onVolumeChange={(e) => setVolume(Number(e.target.value))} hiHatEnabled={hiHatEnabled} onHiHatToggle={handleHiHatToggle} pulseSynthEnabled={pulseSynthEnabled} onPulseSynthToggle={handlePulseSynthToggle} supersawEnabled={supersawEnabled} onSupersawToggle={handleSupersawToggle} basslineEnabled={basslineEnabled} onBasslineToggle={handleBasslineToggle} randomMelodyEnabled={randomMelodyEnabled} onRandomMelodyToggle={handleRandomMelodyToggle} />
+                        <DJControls 
+                          volume={volume} 
+                          onVolumeChange={(e) => setVolume(Number(e.target.value))} 
+                          hiHatEnabled={hiHatEnabled} 
+                          onHiHatToggle={handleHiHatToggle} 
+                          pulseSynthEnabled={pulseSynthEnabled} 
+                          onPulseSynthToggle={handlePulseSynthToggle} 
+                          supersawEnabled={supersawEnabled} 
+                          onSupersawToggle={handleSupersawToggle} 
+                          basslineEnabled={basslineEnabled} 
+                          onBasslineToggle={handleBasslineToggle} 
+                          randomMelodyEnabled={randomMelodyEnabled} 
+                          onRandomMelodyToggle={handleRandomMelodyToggle} 
+                          randomMelodyNumber={randomMelodyNumberInput}
+                          onRandomMelodyNumberChange={handleRandomMelodyNumberChange}
+                          onRandomMelodyNumberKeyDown={handleRandomMelodyNumberKeyDown}
+                          basslineDistortAmount={basslineDistortAmount}
+                          onBasslineDistortAmountChange={handleBasslineDistortAmountChange}
+                          basslineDistortCurve={basslineDistortCurve}
+                          onBasslineDistortCurveChange={handleBasslineDistortCurveChange}
+                          distortionEnabled={distortionEnabled}
+                          onDistortionToggle={handleDistortionToggle}
+                        />
                         <nav>
                             <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
                         </nav>
