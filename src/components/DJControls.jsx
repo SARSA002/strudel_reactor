@@ -79,7 +79,7 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle, pulse
                   </button>
                 </div>
                 <div className="text-center" style={{ marginTop: '30px', marginBottom: '20px' }}>
-                  <label htmlFor="basslineDistortAmount" className="form-label">{!basslineEnabled ? "0FFL1NΞ :(" : "D1570R710N_∆M0µN7"}</label>
+                  <label htmlFor="basslineDistortAmount" className="form-label" style={{ opacity: !basslineEnabled ? 0.5 : 1 }}>{!basslineEnabled ? "0FFL1NΞ :(" : "D1570R710N_∆M0µN7"}</label>
                   <input 
                     type="range" 
                     className="form-range" 
@@ -92,10 +92,10 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle, pulse
                     onMouseUp={onBasslineDistortAmountChange}
                     disabled={!distortionEnabled || !basslineEnabled}
                   />
-                  <output htmlFor="basslineDistortAmount" aria-hidden="true">{basslineDistortAmount}</output>
+                  <output htmlFor="basslineDistortAmount" aria-hidden="true" style={{ opacity: !basslineEnabled ? 0.5 : 1 }}>{basslineDistortAmount}</output>
                 </div>
                 <div className="text-center" style={{ marginTop: '20px', marginBottom: '20px' }}>
-                  <label htmlFor="basslineDistortCurve" className="form-label">{!basslineEnabled ? "@L$0_0FFL1NΞ :(" : "D1570R710N_CµRVΞ"}</label>
+                  <label htmlFor="basslineDistortCurve" className="form-label" style={{ opacity: !basslineEnabled ? 0.5 : 1 }}>{!basslineEnabled ? "∆L$0_0FFL1NΞ :(" : "D1570R710N_CµRVΞ"}</label>
                   <input 
                     type="range" 
                     className="form-range" 
@@ -108,7 +108,7 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle, pulse
                     onMouseUp={onBasslineDistortCurveChange}
                     disabled={!distortionEnabled || !basslineEnabled}
                   />
-                  <output htmlFor="basslineDistortCurve" aria-hidden="true">{basslineDistortCurve}</output>
+                  <output htmlFor="basslineDistortCurve" aria-hidden="true" style={{ opacity: !basslineEnabled ? 0.5 : 1 }}>{basslineDistortCurve}</output>
                 </div>
                 <div className="form-check form-switch" style={{ marginTop: '10px', marginBottom: '10px', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <input 

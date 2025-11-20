@@ -14,6 +14,8 @@ import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocTextArea from './components/PreprocTextArea';
 import { Preprocess } from './utils/PreprocessLogic';
+import FileManager from './utils/FileManager';
+import { Button } from 'react-bootstrap';
 
 let globalEditor = null;
 
@@ -24,6 +26,7 @@ const handleD3Data = (event) => {
 export default function StrudelDemo() {
     
     const hasRun = useRef(false);
+    const fileInputRef = useRef(null);
 
     const handlePlay = () => {
         let melodyNumberToUse = randomMelodyNumber;
@@ -84,6 +87,50 @@ export default function StrudelDemo() {
     setDistortionEnabled(prev => !prev);
     };
 
+    const triggerFileInput = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleSaveSettings = () => {
+        const settings = {
+            volume,
+            hiHatEnabled,
+            pulseSynthEnabled,
+            supersawEnabled,
+            basslineEnabled,
+            randomMelodyEnabled,
+            randomMelodyNumber,
+            randomMelodyNumberInput,
+            basslineDistortAmount,
+            basslineDistortCurve,
+            distortionEnabled
+        };
+        FileManager.save(settings);
+    };
+
+    const handleLoadSettings = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            FileManager.load(file, (loadedSettings) => {
+                if (loadedSettings.volume !== undefined) setVolume(loadedSettings.volume);
+                if (loadedSettings.hiHatEnabled !== undefined) setHiHatEnabled(loadedSettings.hiHatEnabled);
+                if (loadedSettings.pulseSynthEnabled !== undefined) setPulseSynthEnabled(loadedSettings.pulseSynthEnabled);
+                if (loadedSettings.supersawEnabled !== undefined) setSupersawEnabled(loadedSettings.supersawEnabled);
+                if (loadedSettings.basslineEnabled !== undefined) setBasslineEnabled(loadedSettings.basslineEnabled);
+                if (loadedSettings.randomMelodyEnabled !== undefined) setRandomMelodyEnabled(loadedSettings.randomMelodyEnabled);
+                if (loadedSettings.randomMelodyNumber !== undefined) setRandomMelodyNumber(loadedSettings.randomMelodyNumber);
+                if (loadedSettings.randomMelodyNumberInput !== undefined) setRandomMelodyNumberInput(loadedSettings.randomMelodyNumberInput);
+                if (loadedSettings.basslineDistortAmount !== undefined) setBasslineDistortAmount(loadedSettings.basslineDistortAmount);
+                if (loadedSettings.basslineDistortCurve !== undefined) setBasslineDistortCurve(loadedSettings.basslineDistortCurve);
+                if (loadedSettings.distortionEnabled !== undefined) setDistortionEnabled(loadedSettings.distortionEnabled);
+            }, () => {
+                e.target.value = null;
+            });
+        }
+    };
+
     const [procText, setProcText] = useState(algorave_dave_tune)
 
     const [volume, setVolume] = useState(1);
@@ -108,7 +155,7 @@ export default function StrudelDemo() {
     
     const [basslineDistortCurve, setBasslineDistortCurve] = useState(0.4);
     
-    const [distortionEnabled, setDistortionEnabled] = useState(true);
+    const [distortionEnabled, setDistortionEnabled] = useState(false);
 
     const handleRandomMelodyNumberChange = (e) => {
         const value = e.target.value;
@@ -240,6 +287,30 @@ export default function StrudelDemo() {
 return (
     <div>
         <h2 style={{ textAlign: 'center', fontSize: 40 }}>$7RµDΞL_R∆VΞ</h2>
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <Button 
+                variant="outline-success" 
+                size="sm" 
+                onClick={handleSaveSettings}
+                style={{ marginRight: '10px' }}
+            >
+                $∆VΞ_$Ξ77IΝG$
+            </Button>
+            <Button 
+                variant="outline-success" 
+                size="sm" 
+                onClick={triggerFileInput}
+            >
+                L0∆D_$Ξ77IΝG$
+            </Button>
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept="application/json"
+                onChange={handleLoadSettings}
+                style={{ display: 'none' }}
+            />
+        </div>
         <main>
             <div className="container-fluid">
                 <div className="row">
