@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 const D3Graph = ({ data }) => {
+    // The SVG element for D3 to manipulate
     const svgRef = useRef(null);
+    // Stores the current audio level for each instrument channel
     const [peaks, setPeaks] = useState({ 
         pulse: 0, 
         hihat: 0, 
@@ -11,9 +13,11 @@ const D3Graph = ({ data }) => {
         melody: 0 
     });
 
+    // Parses incoming data from console-monkey-patch and updates peaks state
     useEffect(() => {
         const newPeaks = {};
 
+        // Data comes as array of strings: pulse:0.523
         data.forEach(entry => {
             if (typeof entry === 'string') {
                 const parts = entry.split(':');
@@ -82,6 +86,7 @@ const D3Graph = ({ data }) => {
 
         channels.forEach(channel => {
             const value = peaks[channel] || 0;
+            // Limits values to prevent bars exceeding 100%
             const maxValue = Math.min(value, 1);
             const y = yScale(channel);
             const x = 0;

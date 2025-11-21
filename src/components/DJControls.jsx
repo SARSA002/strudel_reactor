@@ -80,6 +80,7 @@ function DJControls({ volume, onVolumeChange, hiHatEnabled, onHiHatToggle, pulse
                 </div>
                 <div className="text-center" style={{ marginTop: '30px', marginBottom: '20px' }}>
                   <label htmlFor="basslineDistortAmount" className="form-label" style={{ opacity: !basslineEnabled ? 0.5 : 1 }}>{!basslineEnabled ? "0FFL1NΞ :(" : "D1570R710N_∆M0µN7"}</label>
+                  {/* Slider disabled if either distortion or bassline is turned off */}
                   <input 
                     type="range" 
                     className="form-range" 

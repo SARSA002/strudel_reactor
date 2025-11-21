@@ -1,10 +1,15 @@
 function FileManager() { }
 
+// Exports settings object as downloadable JSON file
 FileManager.save = function (controls) {
     try {
+        // Convert JavaScript object to JSON string 
         const json = JSON.stringify(controls, null, 2);
+        // Create a Blob (binary data) from the JSON string
         const blob = new Blob([json], { type: 'application/json' });
+        // Generate temporary URL pointing to the Blob
         const url = URL.createObjectURL(blob);
+        // Create and click download link
         const link = document.createElement('a');
         link.href = url;
         link.download = 'strudel_settings.json'; 
@@ -17,6 +22,7 @@ FileManager.save = function (controls) {
     }
 };
 
+// Reads JSON file and parses it back into JavaScript object
 FileManager.load = function (file, setControls, resetFileInput) {
     if (!file) return;
 
@@ -27,6 +33,7 @@ FileManager.load = function (file, setControls, resetFileInput) {
             const text = event.target.result;
             const loadedControls = JSON.parse(text);
 
+            // Convert string numbers back to actual numbers (JSON stores everything as strings)
             if (loadedControls.volume !== undefined) {
                 loadedControls.volume = parseFloat(loadedControls.volume);
             }

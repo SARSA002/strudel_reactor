@@ -1,4 +1,5 @@
 let originalLog = null;
+// Tracks current audio level for each instrument
 const levels = { pulse: 0, hihat: 0, supersaw: 0, bassline: 0, melody: 0 };
 
 const emitChange = () => {
@@ -6,6 +7,7 @@ const emitChange = () => {
     document.dispatchEvent(new CustomEvent("d3Data", { detail }));
 };
 
+// Identifies which instrument channel based on orbit number
 function detectChannel(text) {
     const lower = text.toLowerCase();
 
@@ -22,6 +24,7 @@ export default function console_monkey_patch() {
     if (originalLog) return;
     originalLog = console.log;
 
+    // Replace console.log with custom function that extracts audio data
     console.log = function (...args) {
         const logText = args.join(" ");
 
@@ -40,6 +43,7 @@ export default function console_monkey_patch() {
         originalLog.apply(console, args);
     };
 
+    // Gradually decrease audio levels over time for smooth animation
     setInterval(() => {
         let changed = false;
         for (const ch in levels) {

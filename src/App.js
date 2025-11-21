@@ -93,6 +93,7 @@ export default function StrudelDemo() {
         }
     };
 
+    // Collects all DJ controls into a single object and saves to JSON
     const handleSaveSettings = () => {
         const settings = {
             volume,
@@ -110,6 +111,7 @@ export default function StrudelDemo() {
         FileManager.save(settings);
     };
 
+    // Loads settings from JSON and updates all variables
     const handleLoadSettings = (e) => {
         const file = e.target.files[0];
         if (file) {
