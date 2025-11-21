@@ -15,18 +15,18 @@ import ProcButtons from './components/ProcButtons';
 import PreprocTextArea from './components/PreprocTextArea';
 import { Preprocess } from './utils/PreprocessLogic';
 import FileManager from './utils/FileManager';
-import { Button } from 'react-bootstrap';
+import D3Graph from './utils/D3Graph';
+import { Button, Tabs, Tab, Modal } from 'react-bootstrap';
 
 let globalEditor = null;
-
-const handleD3Data = (event) => {
-    console.log(event.detail);
-};
 
 export default function StrudelDemo() {
     
     const hasRun = useRef(false);
     const fileInputRef = useRef(null);
+    const [d3Data, setD3Data] = useState([]);
+    const [activeTab, setActiveTab] = useState('controls');
+    const [showD3Modal, setShowD3Modal] = useState(false);
 
     const handlePlay = () => {
         let melodyNumberToUse = randomMelodyNumber;
@@ -247,6 +247,10 @@ export default function StrudelDemo() {
     useEffect(() => {
 
     if (!hasRun.current) {
+        const handleD3Data = (event) => {
+            setD3Data(event.detail);
+        };
+        
         document.addEventListener("d3Data", handleD3Data);
         console_monkey_patch();
         hasRun.current = true;
@@ -313,11 +317,24 @@ return (
         </div>
         <main>
             <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-8 editor-container">
-                        <PreprocTextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} id="proc" />
+                <div className="row" style={{ minHeight: '80vh' }}>
+                    <div className="col-md-7" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div className="editor-container" style={{ height: '45vh' }}>
+                            <PreprocTextArea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} id="proc" />
+                        </div>
+                        <div className="editor-container" style={{ height: '45vh' }}>
+                            <div id="editor" />
+                        </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-5" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <div style={{ marginBottom: '10px' }}>
+                            <button 
+                                className="btn btn-outline-primary btn-full"
+                                onClick={() => setShowD3Modal(true)}
+                            >
+                                ∆µD10_LΞVΞL$_GR∆PH
+                            </button>
+                        </div>
                         <DJControls 
                           volume={volume} 
                           onVolumeChange={(e) => setVolume(Number(e.target.value))} 
@@ -341,19 +358,23 @@ return (
                           distortionEnabled={distortionEnabled}
                           onDistortionToggle={handleDistortionToggle}
                         />
-                        <nav>
+                        <nav style={{ marginTop: '10px' }}>
                             <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }} />
                         </nav>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-8 editor-container">
-                        <div id="editor" />
                     </div>
                 </div>
             </div>
             <canvas id="roll"></canvas>
         </main >
+        
+        <Modal show={showD3Modal} onHide={() => setShowD3Modal(false)} size="xl" centered style={{ '--bs-modal-width': '117%' }}>
+            <Modal.Header closeButton>
+                <Modal.Title style={{ width: '100%', textAlign: 'center', marginRight: '32px' }}>∆µD10_LΞVΞL$_GR∆PH</Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{ padding: '60px' }}>
+                <D3Graph data={d3Data} />
+            </Modal.Body>
+        </Modal>
     </div >
 );
 

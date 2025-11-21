@@ -12,7 +12,9 @@ s("{$PS_PATTERN}")
 .dec(.1)
 .fm("2")
 .fmh(4)
-.gain(2)
+.gain(1.25)
+.log()
+._scope()
 
 hi_hats:
 s("{$HH_PATTERN}")
@@ -20,6 +22,8 @@ s("{$HH_PATTERN}")
 .room(.3)
 .orbit(5)
 .lpf(8000)
+.log()
+._scope()
 
 supersaw_pad:
 s("{$SS_PATTERN}")
@@ -31,7 +35,8 @@ s("{$SS_PATTERN}")
 .fm("2")
 .fmh(3)
 .gain(0.75)
-
+.log()
+._scope()
 
 bassline:
 {$BS_PATTERN}
@@ -39,8 +44,8 @@ bassline:
 .duckattack(.2)
 .duckdepth(.8)
 .gain(1)
+.log()
 ._scope()
-
 
 melody:
 {$RM_PATTERN}
@@ -53,6 +58,7 @@ melody:
 .lpq(12)
 .orbit(2)
 .gain(1)
+.log()
 ._pianoroll()
 
 // @version 1.2`;
